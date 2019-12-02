@@ -23,7 +23,7 @@ ENV \
   ENV=/opt/rh/go-toolset-7/enable \
   PROMPT_COMMAND=". /opt/rh/go-toolset-7/enable"
 
-RUN mkdir -p ${GOPATH} && chmod -R 777 ${GOPATH} && \
+RUN mkdir -p "${GOPATH}" && chmod -R 777 "${GOPATH}" && \
     yum install -y centos-release-scl && \
     yum -y install git go-toolset-7-golang gem ruby-devel && \
     yum clean all 
@@ -39,9 +39,9 @@ RUN \
   git clone https://github.com/lomik/go-carbon.git
 
 WORKDIR ${GOPATH}/go-carbon
-# hadolint ignore=DL4006
+# hadolint ignore=DL4006,SC1090
 RUN \
-  source ${ENV} && \
+  source "${ENV}" && \
   if [ "${BUILD_TYPE}" == "stable" ] ; then \
     echo "switch to stable Tag v${GOCARBON_VERSION}" && \
     git checkout "tags/v${GOCARBON_VERSION}" 2> /dev/null ; \
