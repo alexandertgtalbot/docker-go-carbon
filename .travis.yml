@@ -17,7 +17,6 @@ jobs:
     - make integration_test
     - make stop
     - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-    - docker tag  ${USER}/go-carbon:latest ${DOCKER_USERNAME}/docker-go-carbon:latest
     - docker push ${DOCKER_USERNAME}/go-carbon:latest
     - docker tag  ${DOCKER_USERNAME}/go-carbon:latest ${DOCKER_USERNAME}/go-carbon:${GOCARBON_VERSION}
     - docker push ${DOCKER_USERNAME}/go-carbon:${GOCARBON_VERSION}
