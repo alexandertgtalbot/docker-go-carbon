@@ -11,9 +11,10 @@ jobs:
   include:
   - stage: build, test and push docker image
     script:
-    - make test
+    - make linter
     - make
     - make start
+    - make integration_test
     - make stop
     - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
     - docker tag  ${USER}/go-carbon:latest ${DOCKER_USERNAME}/docker-go-carbon:latest
