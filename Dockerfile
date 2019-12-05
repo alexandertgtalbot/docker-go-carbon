@@ -28,8 +28,6 @@ RUN mkdir -p "${GOPATH}" && chmod -R 777 "${GOPATH}" && \
     yum -y install git go-toolset-7-golang gem ruby-devel && \
     yum clean all 
 
-#RUN gem install --no-document fpm
-
 WORKDIR ${GOPATH}
 
 RUN \
