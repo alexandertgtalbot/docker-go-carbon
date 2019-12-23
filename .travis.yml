@@ -5,28 +5,17 @@ env:
   global:
   - BUILD_TYPE=${BUILD_TYPE:-stable}
   - GOCARBON_VERSION=0.14.0
-  - BUILD_OS_VERSION=centos7.6.1810
   - DOCKER_USERNAME=alexandertgtalbot
-  - secure: K9t80axZUK7kZSg
-  qrmwGo80GG5CiWSta19cDeGALBGhcnTgXHbYzKim6yd4dvnog9u6MHwNlITd8Wye+UThR72/kXpOpkgEYVOd5kLeZl7SgmR3FT6p8SjA88B/BvOV3MADcqNMaKlIiHj3D8K7+ZJTw05EMUCnK6KkPf32UFdAoNwl9Zap9us0sgXD44iUalU/tnflgUVgHqui/YlXadoCiZZQPr5in3G2sLCY1OkSHa2/dKHoOqPqQtUQgxqJ1Qu6g2EqJWQAP5MuGdAhQBPaf0dulLfQB1bvN7CnI1H+oJgwuU7WNkCCnkp6EjNVedUofoMw/AZnGToTMc7LykIIvtOExgf6eNRfFqAFlW+QMDqxJdiyJiEtIne7Iyt1QNJ6KU0IKc6vC5Dg9SsBB1bggmAbhDC0N1r7XI5d1noaiYwsnVW7uCFGwDZuUSvMfMmqyWXtzVRZ/LhyCGt6nvuvL2n0L4VvYInpOnpQQ+xterPuaGuUSO0INT2sdIRQLoWL7ixjt+i681rJerudRQ4CcmSlii1kFkNbgUv994kodhbQ5LDJcljiarNHb9AS99ObqoKD77B0DEppcmwOIf4T+lu4Wg9G/emS78vhsNZsnxreLAT7rWblUnlV2eCfWdptR2/ush89WpXqnFN5Vm/PpB0BM0xPhv1oPuVTi4nU=
+  - secure: K9t80axZUK7kZSgqrmwGo80GG5CiWSta19cDeGALBGhcnTgXHbYzKim6yd4dvnog9u6MHwNlITd8Wye+UThR72/kXpOpkgEYVOd5kLeZl7SgmR3FT6p8SjA88B/BvOV3MADcqNMaKlIiHj3D8K7+ZJTw05EMUCnK6KkPf32UFdAoNwl9Zap9us0sgXD44iUalU/tnflgUVgHqui/YlXadoCiZZQPr5in3G2sLCY1OkSHa2/dKHoOqPqQtUQgxqJ1Qu6g2EqJWQAP5MuGdAhQBPaf0dulLfQB1bvN7CnI1H+oJgwuU7WNkCCnkp6EjNVedUofoMw/AZnGToTMc7LykIIvtOExgf6eNRfFqAFlW+QMDqxJdiyJiEtIne7Iyt1QNJ6KU0IKc6vC5Dg9SsBB1bggmAbhDC0N1r7XI5d1noaiYwsnVW7uCFGwDZuUSvMfMmqyWXtzVRZ/LhyCGt6nvuvL2n0L4VvYInpOnpQQ+xterPuaGuUSO0INT2sdIRQLoWL7ixjt+i681rJerudRQ4CcmSlii1kFkNbgUv994kodhbQ5LDJcljiarNHb9AS99ObqoKD77B0DEppcmwOIf4T+lu4Wg9G/emS78vhsNZsnxreLAT7rWblUnlV2eCfWdptR2/ush89WpXqnFN5Vm/PpB0BM0xPhv1oPuVTi4nU=
 jobs:
   include:
-  - stage: Lint Dockerfile.
+  - stage: build, test and push docker image
     script:
     - make linter
-  - stage: Build Docker image.
-    script:
     - make
-  - stage: Integration test.
-    script:
     - make start
     - make integration_test
     - make stop
-  - stage: Push image to Dockerhub.
-    if: branch = master
-    script:
     - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-    - docker push ${DOCKER_USERNAME}/go-carbon:latest
     - docker tag  ${DOCKER_USERNAME}/go-carbon:latest ${DOCKER_USERNAME}/go-carbon:${GOCARBON_VERSION}
-    - docker push ${DOCKER_USERNAME}/go-carbon:${GOCARBON_VERSION}
     - docker logout
