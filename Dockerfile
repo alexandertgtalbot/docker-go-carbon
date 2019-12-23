@@ -55,8 +55,8 @@ RUN \
   mv  deploy/storage-schemas.conf     /go-carbon/etc/go-carbon_storage-schemas.conf && \
   mv  deploy/storage-aggregation.conf /go-carbon/etc/go-carbon_storage-aggregation.conf
 
-# ---------------------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------------------
 FROM centos:${BUILD_OS_VERSION}
 
 EXPOSE 2003 2003/udp 2004 7002 7003 7007 8080

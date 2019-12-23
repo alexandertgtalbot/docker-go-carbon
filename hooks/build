@@ -4,20 +4,23 @@
 # see: https://medium.com/microscaling-systems/labelling-automated-builds-on-docker-hub-f3d073fb8e1
 
 echo ""
-echo " BUILD_OS_VERSION: ${BUILD_OS_VERSION}"
-echo " GOCARBON_VERSION: ${GOCARBON_VERSION}"
 echo " BUILD_DATE      : ${BUILD_DATE}"
-echo " GIT_SHA1        : ${GIT_SHA1}"
+echo " BUILD_DOCKER_TAG: ${BUILD_DOCKER_TAG}"
+echo " BUILD_OS_VERSION: ${BUILD_OS_VERSION}"
+echo " BUILD_TYPE      : ${BUILD_TYPE}"
+echo " BUILD_VERSION   : ${BUILD_VERSION}"
+echo " GOCARBON_VERSION: ${GOCARBON_VERSION}"
+echo " VCS_REF         : ${GIT_SHA1}"
 echo ""
 
 docker build \
   --file Dockerfile \
   --rm \
   --compress \
-  --build-arg VCS_REF=${GIT_SHA1} \
   --build-arg BUILD_DATE=${BUILD_DATE} \
   --build-arg BUILD_OS_VERSION=${BUILD_OS_VERSION} \
-  --build-arg BUILD_VERSION=${BUILD_VERSION} \
   --build-arg BUILD_TYPE=${BUILD_TYPE} \
+  --build-arg BUILD_VERSION=${BUILD_VERSION} \
   --build-arg GOCARBON_VERSION=${GOCARBON_VERSION} \
+  --build-arg VCS_REF=${GIT_SHA1} \
   --tag ${DOCKER_NAME_SPACE}/${DOCKER_IMAGE_NAME}:${DOCKER_VERSION} .
