@@ -24,7 +24,6 @@ jobs:
     - make integration_test
     - make stop
   - stage: Push image to Dockerhub.
-    if: branch = master
     script:
     - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
     - docker push ${DOCKER_USERNAME}/go-carbon:latest
