@@ -23,5 +23,5 @@ docker build \
   --build-arg BUILD_VERSION=${BUILD_VERSION} \
   --build-arg GOCARBON_VERSION=${GOCARBON_VERSION} \
   --build-arg VCS_REF=${GIT_SHA1} \
-  --build-arg CONFD_VERSION=${CONFD_VERSION}
+  --build-arg CONFD_VERSION=${CONFD_VERSION} \
   --tag ${DOCKER_NAME_SPACE}/${DOCKER_IMAGE_NAME}:${BUILD_DOCKER_TAG} .
