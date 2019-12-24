@@ -4,6 +4,7 @@ ARG BUILD_OS_VERSION=latest
 ARG BUILD_TYPE
 ARG BUILD_VERSION
 ARG GOCARBON_VERSION
+ARG CONFD_VERSION           # Reference: https://cloudonaut.io/dockerizing-legacy-applications-with-confd/
 
 FROM centos:${BUILD_OS_VERSION} as builder
 
@@ -65,6 +66,12 @@ COPY --from=builder /etc/profile.d/go-carbon.sh  /etc/profile.d/go-carbon.sh
 COPY --from=builder /go-carbon/etc               /etc/go-carbon/
 COPY --from=builder /go-carbon/go-carbon         /usr/bin/go-carbon
 
+# confd
+RUN curl -s -L "https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64" -o /usr/local/bin/confd && chmod +x /usr/local/bin/confd
+#COPY docker/custom-entrypoint /usr/local/bin/
+#RUN chmod u+x /usr/local/bin/custom-entrypoint
+#ENTRYPOINT ["custom-entrypoint"]
+
 COPY rootfs/ /
 
 # hadolint ignore=DL3018
@@ -109,7 +116,7 @@ LABEL \
   org.label-schema.vcs-url="https://github.com/alexandertgtalbot/docker-go-carbon" \
   org.label-schema.vcs-ref=${VCS_REF} \
   org.label-schema.vendor="Alex Talbot" \
-  org.label-schema.version=${GOCARBON_VERSION} \
+  org.label-schema.version=${BUILD_DOCKER_TAG} \
   org.label-schema.schema-version="1.0" \
   com.microscaling.docker.dockerfile="/Dockerfile" \
   com.microscaling.license="The Unlicense"

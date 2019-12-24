@@ -4,7 +4,6 @@
 set -e
 
 WORK_DIR="/srv"
-
 CONFIG_FILE="/etc/go-carbon/carbon.conf"
 DEFAULT_CONFIG="/etc/go-carbon/carbon-default.conf"
 
