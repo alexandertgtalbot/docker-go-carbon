@@ -66,8 +66,7 @@ COPY --from=builder /etc/profile.d/go-carbon.sh  /etc/profile.d/go-carbon.sh
 COPY --from=builder /go-carbon/etc               /etc/go-carbon/
 COPY --from=builder /go-carbon/go-carbon         /usr/bin/go-carbon
 
-# confd.
-# Reference: https://cloudonaut.io/dockerizing-legacy-applications-with-confd/
+# confd - reference: https://cloudonaut.io/dockerizing-legacy-applications-with-confd/
 RUN curl -s -L "https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64" -o /usr/local/bin/confd && chmod +x /usr/local/bin/confd
 #COPY docker/custom-entrypoint /usr/local/bin/
 #RUN chmod u+x /usr/local/bin/custom-entrypoint
@@ -88,13 +87,13 @@ RUN \
   mkdir \
     /var/log/go-carbon && \
   chown -R carbon:carbon \
-    /srv \
+    /data \
     /var/log/go-carbon \
     /etc/go-carbon 
 
 WORKDIR /
 
-VOLUME /srv
+VOLUME /data
 
 # USER carbon
 CMD ["/init/run.sh"]

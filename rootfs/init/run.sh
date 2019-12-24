@@ -3,12 +3,11 @@
 
 set -e
 
-WORK_DIR="/srv"
+WORK_DIR="/data"
 CONFIG_FILE="/etc/go-carbon/carbon.conf"
 DEFAULT_CONFIG="/etc/go-carbon/carbon-default.conf"
 
 prepare() {
-
   sed -i \
     -e 's|%DATA_DIR%|'${WORK_DIR}'|g' \
     -e 's|/var/lib|'${WORK_DIR}'|g' \
@@ -36,6 +35,11 @@ run() {
   prepare
 
   go-carbon -check-config -config "${CONFIG_FILE}"
+
+  if [ -z "CONSOL_ENDPOINT" ]
+  then
+    echo "Applying Confd updates."
+  fi
 
   go-carbon -config "${CONFIG_FILE}"
 }

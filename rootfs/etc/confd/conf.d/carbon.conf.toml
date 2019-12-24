@@ -1,0 +1,6 @@
+[template]
+src = "carbon.conf.tpl"
+dest = "/etc/go-carbon/carbon.conf"
+keys = [
+    "/go-carbon/max-cpu",
+]
