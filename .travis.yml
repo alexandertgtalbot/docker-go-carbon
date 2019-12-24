@@ -15,18 +15,27 @@ jobs:
   - stage: Lint Dockerfile.
     script:
     - make linter
+
   - stage: Build Docker image.
+    if: branch != master
     script:
     - make
+    - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+    - docker tag  ${DOCKER_USERNAME}/go-carbon:latest ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}
+    - docker logout
+
+  - stage: Build Docker image and publish to DockerHub.
+    if: branch = master
+    script:
+    - make
+    - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+    - docker push ${DOCKER_USERNAME}/go-carbon:latest
+    - docker tag  ${DOCKER_USERNAME}/go-carbon:latest ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}
+    - docker push ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}
+    - docker logout
 
   - stage: Integration test.
     script:
     - make start
     - make integration_test
     - make stop
-
-  - stage: Push image to Dockerhub.
-    script:
-    - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-    - docker push ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}
-    - docker logout
