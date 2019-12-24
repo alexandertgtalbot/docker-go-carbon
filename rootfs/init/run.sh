@@ -36,7 +36,7 @@ run() {
 
   go-carbon -check-config -config "${CONFIG_FILE}"
 
-  if [ -z "CONSOL_ENDPOINT" ]
+  if [ -z "${CONSOL_ENDPOINT}" ]
   then
     echo "Applying Confd updates."
   fi
