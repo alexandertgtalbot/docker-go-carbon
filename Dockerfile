@@ -84,8 +84,7 @@ RUN \
     -s /bin/false \
     -c "User for Graphite daemon" \
     carbon && \
-  mkdir 
-    /data \
+  mkdir /data \
     /var/log/go-carbon && \
   chown -R carbon:carbon \
     /data \
