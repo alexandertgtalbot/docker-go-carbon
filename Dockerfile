@@ -4,7 +4,7 @@ ARG BUILD_OS_VERSION=latest
 ARG BUILD_TYPE
 ARG BUILD_VERSION
 ARG GOCARBON_VERSION
-ARG CONFD_VERSION           # Reference: https://cloudonaut.io/dockerizing-legacy-applications-with-confd/
+ARG CONFD_VERSION
 
 FROM centos:${BUILD_OS_VERSION} as builder
 
@@ -66,7 +66,8 @@ COPY --from=builder /etc/profile.d/go-carbon.sh  /etc/profile.d/go-carbon.sh
 COPY --from=builder /go-carbon/etc               /etc/go-carbon/
 COPY --from=builder /go-carbon/go-carbon         /usr/bin/go-carbon
 
-# confd
+# confd.
+# Reference: https://cloudonaut.io/dockerizing-legacy-applications-with-confd/
 RUN curl -s -L "https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64" -o /usr/local/bin/confd && chmod +x /usr/local/bin/confd
 #COPY docker/custom-entrypoint /usr/local/bin/
 #RUN chmod u+x /usr/local/bin/custom-entrypoint
