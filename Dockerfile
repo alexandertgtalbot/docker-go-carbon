@@ -4,7 +4,6 @@ ARG BUILD_OS_VERSION=latest
 ARG BUILD_TYPE
 ARG BUILD_VERSION
 ARG GOCARBON_VERSION
-ARG CONFD_VERSION
 
 FROM centos:${BUILD_OS_VERSION} as builder
 
@@ -59,6 +58,8 @@ RUN \
 
 # ---------------------------------------------------------------------------------------
 FROM centos:${BUILD_OS_VERSION}
+
+ARG CONFD_VERSION
 
 EXPOSE 2003 2003/udp 2004 7002 7003 7007 8080
 
