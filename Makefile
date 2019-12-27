@@ -7,6 +7,7 @@ export BUILD_VERSION     := $(shell date +%y%m)
 export BUILD_TYPE        ?= stable
 export BUILD_OS_VERSION  ?= centos7.6.1810
 export GOCARBON_VERSION  ?= 0.14.0
+export CONFD_VERSION     ?= 0.16.0
 
 
 .PHONY: build shell run exec start stop clean compose-file
