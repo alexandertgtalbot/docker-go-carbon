@@ -20,15 +20,15 @@ jobs:
   - stage: Build dev Docker image and publish to DockerHub.
     if: branch != master
     script:
+    - docker images
     - make
     - docker images
     - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-    - docker tag  ${DOCKER_USERNAME}/go-carbon:latest ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}
     - docker tag  ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG} ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}_dev
     - docker push ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}_dev
     - docker logout
 
-  - stage: Build stable Docker image and publish to DockerHub.
+  - stage: Build stable/latest Docker image and publish to DockerHub.
     if: branch = master
     script:
     - make
