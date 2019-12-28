@@ -21,6 +21,7 @@ jobs:
     if: branch != master
     script:
     - make
+    - docker images
     - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
     - docker tag  ${DOCKER_USERNAME}/go-carbon:latest ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}
     - docker tag  ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG} ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}_dev
