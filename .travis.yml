@@ -17,17 +17,12 @@ jobs:
     script:
     - make linter
 
-  - stage: Build Docker image.
-    if: branch != master
-    script:
-    - make
-
   - stage: Build dev Docker image and publish to DockerHub.
     if: branch != master
     script:
     - make
-    - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-    - docker tag ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG} ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}_dev
+    - docker push ${DOCKER_USERNAME}/go-carbon:latest
+    - docker tag  ${DOCKER_USERNAME}/go-carbon:latest ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}_dev
     - docker push ${DOCKER_USERNAME}/go-carbon:${BUILD_DOCKER_TAG}_dev
     - docker logout
 
