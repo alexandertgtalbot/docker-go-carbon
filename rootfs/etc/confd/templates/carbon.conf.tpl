@@ -1,9 +1,9 @@
 [common]
-user = "carbon"
-graph-prefix = "carbon.agents.{host}"
-metric-endpoint = "tcp://localhost:2003"
-max-cpu = {{getv "/go-carbon/max-cpu"}}
-metric-interval = "1m0s"
+user            = {{ getv "/go-carbon/user" "carbon" }}
+graph-prefix    = {{ getv "/go-carbon/graph-prefix" "carbon.agents.{host}" }}
+metric-endpoint = {{ getv "/go-carbon/metric-endpoint" "tcp://localhost:2003" }}
+max-cpu         = {{ getv "/go-carbon/max-cpu" }}
+metric-interval = {{ getv "/go-carbon/metric-interval" "1m0s" }}
 
 [whisper]
 enabled = true
