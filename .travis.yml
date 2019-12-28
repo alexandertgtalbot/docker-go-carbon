@@ -33,6 +33,7 @@ jobs:
     - docker logout
 
   - stage: Integration test.
+    if: branch = master
     script:
     - make start
     - make integration_test
