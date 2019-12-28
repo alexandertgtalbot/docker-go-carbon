@@ -36,7 +36,7 @@ run() {
 
 
   # Apply Confd/Consul config updates if an endpoint is defined.
-  [ -z "${CONSUL_ENDPOINT}" ] && confd -onetime -backend consul -node "${CONSUL_ENDPOINT}"
+  [[ ! -z "${CONSUL_ENDPOINT}" ]] && confd -onetime -backend consul -node "${CONSUL_ENDPOINT}"
 
   go-carbon -check-config -config "${CONFIG_FILE}"
 
