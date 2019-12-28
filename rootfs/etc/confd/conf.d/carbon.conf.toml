@@ -4,3 +4,4 @@ dest = "/etc/go-carbon/carbon.conf"
 keys = [
     "/go-carbon/max-cpu",
 ]
+check_cmd = "go-carbon -check-config -config {{ .src }}"
