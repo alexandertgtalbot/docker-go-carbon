@@ -13,7 +13,7 @@ echo " GOCARBON_VERSION: ${GOCARBON_VERSION}"
 echo " VCS_REF         : ${GIT_SHA1}"
 echo ""
 
-echo docker build \
+docker build \
   --file Dockerfile \
   --rm \
   --compress \
